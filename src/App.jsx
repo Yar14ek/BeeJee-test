@@ -1,8 +1,13 @@
 import React from 'react';
+import Header from './components/Header'
+import Lists from './components/Lists'
 
 function App() {
   return (
-    <h1>Hello yarik</h1>
+    <div style ={{width:'1000px', margin:'0 auto'}}>
+      <Header/>
+      <Lists/>
+      </div>
   );
 }
 
