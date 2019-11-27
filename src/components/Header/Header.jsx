@@ -31,7 +31,7 @@ class Header extends Component {
             <StuledField
               name="username"
               value={values.username}
-              placeholder="Username"
+              placeholder="Name"
             />
             <StuledField
               name="password"

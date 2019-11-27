@@ -29,7 +29,6 @@ class Lists extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log("work!")
     const { username, filterProp, page, sort, quantityTask,updateTask } = this.props;
     if (
       quantityTask !== prevProps.quantityTask ||
@@ -51,7 +50,7 @@ class Lists extends Component {
         </p>
       ) : (
         <p>
-          Status: <span style={{ color: "tomato" }}>In progres..</span>{" "}
+          Status: <span style={{ color: "tomato" }}>In progress..</span>{" "}
         </p>
       );
       return (
@@ -62,7 +61,6 @@ class Lists extends Component {
             {statusText}
           </Stulediv>
           <TextStule>{i.text}</TextStule>
-          <TextStule>{i.id}</TextStule>
         </StuleLi>
       );
     });

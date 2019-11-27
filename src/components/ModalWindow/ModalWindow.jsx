@@ -24,7 +24,6 @@ class ModalWindow extends Component {
   };
 
   updateForm = e => {
-    console.log(e);
     return (
       <Formik
         initialValues={{

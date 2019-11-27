@@ -22,7 +22,7 @@ class Filter extends Component {
           <StyledSelect onChange={this.filterChange}>
             <option value="id">Id</option>
             <option value="status">Status</option>
-            <option value="username">Username</option>
+            <option value="username">Name</option>
             <option value="email">Email</option>
           </StyledSelect>
         </label>

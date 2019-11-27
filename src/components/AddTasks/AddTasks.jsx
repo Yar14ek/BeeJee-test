@@ -28,7 +28,9 @@ class AddTasks extends Component {
             email: values.email,
             text: values.text
           });
-          getAllTasks({ username: values.username });
+          let page = (values.username===this.props.username)?this.props.page:1
+          console.log('page',page)
+          getAllTasks({ username: values.username,page:page });
           action.resetForm({
             username: "",
             email: "",
@@ -57,11 +59,17 @@ class AddTasks extends Component {
             <StuledBtn type="submit" disabled={!dirty ? "disabled" : ""}>
               Create tasks
             </StuledBtn>
-            {errors.email && <ErrorDiv>{errors.email}</ErrorDiv>}
+            {errors.email && touched.email && <ErrorDiv>{errors.email}</ErrorDiv>}
           </FormStyle>
         )}
       </Formik>
     );
+  }
+}
+const mapStateToProps=state=>{
+  return{
+    username:state.tasksReducer.username,
+    page:state.tasksReducer.page,
   }
 }
 
@@ -70,4 +78,4 @@ const mapDispatchToProps = dispatch => {
     addNewTask: obj => dispatch(createTask(obj))
   };
 };
-export default connect("", mapDispatchToProps)(AddTasks);
+export default connect(mapStateToProps, mapDispatchToProps)(AddTasks);
