@@ -1,37 +1,52 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Formik } from "formik";
 import { StuledField, StuledBtn } from "./headerStyle.js";
-import { getAllTasks } from "../../action/getTasks";
-import { connect } from "react-redux";
+import { loginUser, checoutUser } from "../../action/getTasks";
 
-// createTask({email:'test@test.com',username:'Yarik', text:'hello world'})
-// getAllTasks('Yarik')
 class Header extends Component {
+
+  componentDidUpdate(prevProps){
+    if(this.props.isAdmin!==prevProps.isAdmin){
+      
+    }
+  }
   render() {
-    //   this.props.updateTasks()
-    //   console.log(this.props.tasksList)
     return (
       <Formik
         initialValues={{
-          login: "",
+          username: "",
           password: ""
+        }}
+        onSubmit={(value, action) => {
+          action.resetForm({
+            username: "",
+            password: ""
+          });
+          this.props.loginUser(value);
         }}
       >
         {({ values, handleSubmit, dirty }) => (
           <form onSubmit={handleSubmit}>
             <StuledField
-              name="login"
-              value={values.login}
-              placeholder="login"
+              name="username"
+              value={values.username}
+              placeholder="Username"
             />
             <StuledField
               name="password"
               value={values.password}
-              placeholder="password"
+              placeholder="Password"
             />
-            <StuledBtn type="submit" disabled={!dirty ? "disabled" : ""}>
-              Submit
-            </StuledBtn>
+            { localStorage.getItem("token") ? (
+              <StuledBtn type="button" onClick={this.props.checout}>
+                Checout
+              </StuledBtn>
+            ) : (
+              <StuledBtn type="submit" disabled={!dirty ? "disabled" : ""}>
+                Chek in
+              </StuledBtn>
+            )}
           </form>
         )}
       </Formik>
@@ -39,11 +54,14 @@ class Header extends Component {
   }
 }
 const mapStateToProps = state => {
-    return{
-    }
+  return {
+    isAdmin: state.tasksReducer.isAdmin
+  };
 };
 const mapDispatchToProps = dispatch => {
   return {
+    loginUser: val => dispatch(loginUser(val)),
+    checout: () => dispatch(checoutUser())
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
